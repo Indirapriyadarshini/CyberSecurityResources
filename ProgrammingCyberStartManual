@@ -1,0 +1,625 @@
+To start with, let's create a file - test.py. Note that this example is for a Linux environment! Inside here we can begin with an environment declaration:
+
+#!/usr/bin/python3
+Simply put, this is just telling the machine "when you run this file, please interpret it using <abc>" - in this case, python3 found in /usr/bin. You may notice this is similar to bash scripting where you may have #!/usr/bin/bash or #!/user/bin/sh !
+
+Next, we'll add a simple line of Python:
+
+#!/usr/bin/python3
+print("Hey how goes?")
+Back on the command line, you may need to add execute permissions before you can run it:
+
+$ chmod +x test.py
+Now we can run our program!
+
+$ ./test.py
+Hey how goes?
+Excellent! We've just made a Python program we can run from our present directory.
+
+If this was a tool or script we wanted to run regularly and needed easy access to, we could move this script to a PATH directory. First lets change the name:
+
+$ mv test.py GreetingProg
+$ ./GreetingProg
+Hey how goes?
+Next lets take a look at the directories currently included in our PATH:
+
+$ echo $PATH
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin
+/usr/local/bin looks like a good place to put our script. We'll move it there! Note that you might need to use sudo for appropriate permissions:
+
+$ sudo mv GreetingProg /usr/local/bin
+Now that the program is in a PATH directory, you can access it from anywhere in your terminal! For example, if you start typing Greet and hit the 'TAB' key, it will autocomplete for you. You can hit enter and run the program as before, and also confirm it's new location:
+
+$ GreetingProg
+Hey how goes?
+$ which GreetingProg
+/usr/local/bin/GreetingProg
+
+
+Basic data storage
+Variables are a core component of programming and you'll be using them a lot! Basically, a variable is just a reference to a container storing some kind of information. They're a way we can say to our program "hey, store this data so I can interact with it later".
+
+A variable can contain lots of different types of data. We're going to look at those in more detail in the Data types page, but for now lets try and understand the basic uses of variables and some neat things you can do with them!
+
+# Counter
+counter = 1000
+print(counter)
+counter = counter - 1
+print(counter)
+
+# Base website address
+address = "http://www.sans.org/cooltest.php?userid="
+print(address + "123")
+
+# String demos
+print(address[0])
+print(address[0:3])
+print(address[-3])
+print(address[7:])
+Here's an example Python script demonstrating a few uses of variables. Let's work through it. The first line is a comment, useful to set notes or helpful information for us to refer back to later. On the second line we set our first variable - counter. Here we tell Python we want to store the value 1000 against this variable, using the = character.
+
+On the next line, we ask Python to print this value out using our variable to reference it. If we were to just run those first three lines of code, we'd see something like:
+
+$ python3 test.py
+1000
+A variable doesn't always have to stay the same. On the next line, we modify our variable by asking Python to replace counter with the value of counter minus 1. We can imagine Python would interpret this as something like counter = 1000 - 1. Similarly, we then print the new value. If we again just run this top portion of code we'd see something like:
+
+$ python3 test.py
+1000
+999
+Here we can see at line 3 in our code the variable counter contains 1000 as we have originally set. Then, after modifying it, it now contains 999!
+
+In the next section of code, rather than storing a number in a variable we instead store a string; in this case a web address. Note it's missing a value for the userid parameter! In the next line we can print the address variable, but also concatenate an additional string on the end using the + character. If we ran those two lines of code only we'd have seen:
+
+$ python3 test.py
+http://www.sans.org/cooltest.php?userid=123
+Neat!
+
+The last section of this example demonstrates a few ways we can interact with the address variable in Python. Using square brackets after the variable name, we can request a portion of the variable based on what we specify. Let's run the last set of examples and see what they do:
+
+$ python3 test.py
+h
+htt
+i
+www.sans.org/cooltest.php?userid=
+Interesting! The first line, print(address[0]), told Python to display the character at index 0 of the string - also known as the first character. If you were to split the string into individual characters, the index is the number associated with a given character. Notice it starts at 0! For example, h = 0, t = 1, t = 2, p = 3, and so on.
+
+So, for the next line, print(address[0:3]), the colon allows us to specify a range of characters, starting with index 0 and ending at index 3. Hence the output htt! You'll notice that the end index isn't included in the portion, it stops before the end specified.
+
+In the third line, print(address[-3]), we provide a negative index. This will wrap from the beginning of the string to the end. If we count 3 characters in from the end of original string (http://www.sans.org/cooltest.php?userid=), we reach the letter i.
+
+Finally, the last example print(address[7:]) starts at index 7 and requests a range, but as we didn't provide any end value it just grabs everything after the starting point!
+
+Variables can generally be given any 'name', or reference - you could name a variable x, y, abc and so on. However, when reading through your code it might not be immediately obvious what those variables are for, or what they could contain. A great habit to build is naming variables descriptively: seeing the variable address provides much more information than x. Name descriptively right from the start of your programming journey, it's a good habit to start with!
+
+
+
+How long is a piece of str?
+In this section we will walk through data types. Python is a dynamically and strongly typed language, which is a fancy way of saying it really cares about the type of data, but it is quite flexible with the interpretation of those types allowing us to express them in different ways at different times.
+
+For example, if we had the following Python code:
+
+# Integer
+x = 13
+# Float
+y = 13.333
+# String
+z = "13.0 hello"
+Here we're setting a few different types of variable. x is a whole number, so Python will likely interpret it as an integer. y is a number with a decimal place, which will result in a float. z is defined within quotation marks, and as such it is a string.
+
+As mentioned above, Python is dynamically and strongly typed, meaning we can do some fun things with these variables. Suppose we had this line of code:
+
+print(int(y))
+This would print the variable y to the screen, but as it does so, we're asking Python to dynamically alter the type to an integer. The output of this would be 13 - as integers can only contain whole numbers and Python adjusts the variable accordingly. We also haven't overwritten the original value for the variable y, instead we've just asked Python to temporarily change the type within the print function.
+
+Similarly, we could add this line of code:
+
+print(float(x))
+The result of which would be 13.0. We've asked Python to convert the integer of x into a float, which contains decimal places by default, and so Python has dynamically altered the original value accordingly.
+
+Here we're using some of Python's built-in functions to interact with variables. If you take a look at the documentation you'll see a few others that can be used for manipulating variable types, for example str and bool.
+
+Along with the more simple uses above, Python also allows us to work with hex values or even byte sequences. For example:
+
+# Integer
+x = 254
+print(hex(x))
+If we were to run the above code, we would see the value 0xfe - as requested Python has converted our integer type variable into hexadecimal. Or another neat example:
+
+# Hex string
+y = "\x41\x42\x43"
+print(y)
+Here we have a string containing hex values. If we run this code, Python is able to interpret these hex values to create a string of ASCII characters - ABC.
+
+This is quite handy as often when we're interacting with applications they use encoding schemes or alternative representations of data such as hexadecimal, and Python's dynamic interpretation makes this a lot simpler to work with!
+
+
+
+Making maths easy
+As you're building programs and applications you're going to run into scenarios where number manipulation is important. Maybe you're trying to solve an interesting homework problem, or trying to come up with a clever way to find the next number in a sequence for a tool you're building. For these kinds of tasks, Python has a great built-in module we can make use of: the math module.
+
+Let's take a look at some examples of how we can use it.
+
+# Import the math module
+import math
+# Product of
+print(math.prod((2, 4, 6)))
+# Raise a number to the power of
+print(math.pow(2, 3))
+# Rounding numbers
+x = 13.9
+# Up
+print(math.ceil(x))
+# Down
+print(math.floor(x))
+As the comment helpfully points out, the first thing we need to do is import the math module. By default Python includes various useful modules, and you can also download and make use of external modules too, however their functionality isn't automatically available in your scripts.
+
+Instead, we need to tell Python we want to include that module's features in our code with the import math line.
+
+Now the module is available, we can make use of its many functions. If you check out Python's math module you'll see many different functions available for assisting with all kinds of maths.
+
+In our example we're first printing out the result of the math.prod function - this produces a product of a sequence of numbers provided. Note here that the argument (the data we provide to the function) we provide is 3 numbers inside parenthesis. This is called a tuple and we'll cover that in more detail later. For now, just know that it allows us to provide the three numbers in a format the function can work with.
+
+We see the output from this line of code is the value 48 which is the product of those numbers, that is; 2 4 8.
+
+The next function we explore is the math.pow function; used to raise the first number provided by the power of the second number; 2 2 2. The output from this is 8 as expected.
+
+The math module also has a couple of helpful functions for rounding numbers up and down. As we can see in the example, we have a float x of 13.9, and we print the result of math.ceil (to round up, or go to the 'ceiling' of the whole number) along with math.floor (to round down, or go to the 'floor' of the whole number). The resulting output would be 14 and 13.
+
+
+
+Organising data
+Lists
+Lists are a useful 'collection' data type that are designed to enable us to store multiple 'things' in a single variable. There are different types of collections in Python which serve different purposes, for example some which really care about the order of items within or others which are read-only. As you grow to understand these different types you'll get a feel for which is suitable for your use-case.
+
+For now, let's start looking at an example of a simple list:
+
+interesting = [19, 'string', 3, 1337]
+print(interesting)
+print(interesting[3])
+To begin with we create a variable interesting with a list - we use the square brackets, with comma separated values within, to tell Python this is what we're looking to do.
+
+If we just print out the variable interesting we would see [19, 'string', 3, 1337]. That's not so... interesting - it looks exactly the same as we typed. In fact, for all we know it could just be a string! However, with the next line we can see something a bit more meaningful.
+
+We print interesting[3], which (as briefly mentioned in the Variables page) asks for the value at index 3. As noted before, the index starts at 0, and so the value printed here would be 1337.
+
+Note that the items inside the list remain in the order we provided them in. They're not being automatically sorted in any particular order. It also contains different types of data; we have both integers and a string.
+
+Much like the string concatenation we did previously, you can also concatenate lists in a similar way:
+
+print(interesting + ["a new list"])
+The result of which would be: [19, 'string', 3, 1337, 'a new list']. Python has neatly appended our second list on to the first.
+
+You can also add or remove items from the list with its built in functions. For example:
+
+interesting = [19, 'string', 3, 1337]
+interesting.append('another string')
+print(interesting)
+interesting.remove('string')
+print(interesting)
+interesting.remove('string')
+If we run this, we would see:
+
+$ python3 test.py
+[19, 'string', 3, 1337, 'another string']
+[19, 3, 1337, 'another string']
+Traceback (most recent call last):
+  File "test.py", line 6, in <module>
+    interesting.remove('string')
+ValueError: list.remove(x): x not in list
+First, we can see that the append function has added the argument 'another string' to the end of the list. Next, we can see the remove function has removed the argument 'string' from the list. Neat!
+
+Finally, we attempted to remove 'string' from the list a second time. As it no longer exists, Python isn't able to remove it and so it throws an error, telling us about the problem.
+
+Lists can also be sorted! For example:
+
+interesting = [19, 3, 1337]
+print(interesting)
+interesting.sort()
+print(interesting)
+$ python3 test.py
+[19, 3, 1337]
+[3, 19, 1337]
+Note that here we removed the 'string' item from the list. This is because Python doesn't like trying to sort a list with different data type - what comes first? a number or a string? - and it would have errored. The first print shows the list in the order we created. The second print, however, is after we've sorted our list and of course shows the numbers in their new sorted ascending order.
+
+As you can see, lists are a simple way to group a bunch of information together, allowing you to interact with the data and update the list as needed.
+
+Tuples
+A Tuple is similar to a list, however it is read-only. That is; once you have defined the items in the tuple when it's created, you can't modify the items within, add or remove items etc. Here's an example:
+
+readonly = (19, 3, 1337)
+print(readonly)
+print(readonly[0])
+print(sorted(readonly))
+readonly.append(123)
+$ python3 test.py
+(19, 3, 1337)
+19
+[3, 19, 1337]
+Traceback (most recent call last):
+  File "test.py", line 5, in <module>
+    readonly.append(123)
+AttributeError: 'tuple' object has no attribute 'append'
+As you can see, can still interact with a tuple in the same ways you could a list: accessing a particular index, sorting, etc. There's some interesting things to note here however!
+
+First, you'll notice we created the tuple slightly differently - using parenthesis instead of square brackets. Second, rather than using the sort function to change the tuple to a sorted version, we instead have to use the sorted function. This is because the tuple is read-only; we can't change it. Instead, the sorted function takes the contents and creates a list with the items in order.
+
+Finally, if we try to append an item to the tuple we're given an error - the append function doesn't exist.
+
+
+
+Even more organising
+Dictionaries are similar to lists, however the data is stored in key : value pairs. While a list automatically assigns an index to each item within, in a dictionary we need to specify the data item but also the key it will be stored against.
+
+Let's jump into an example:
+
+mydictionary = {
+    "firstname": "james",
+    "lastname": "lyne",
+    "age": 974
+}
+
+print(mydictionary)
+print(mydictionary["firstname"])
+print(mydictionary.get("lastname"))
+$ python3 test.py
+{'firstname': 'james', 'lastname': 'lyne', 'age': 974}
+james
+lyne
+In the example code we can see the structure of a dictionary. It's similar to the Lists and tuples we've already looked at, though it's spread over a few lines to make it easier to read. Each item is still separated by a comma, however each item contains two components separated by a colon, for example "firstname": "james". These are the key (firstname) and value (james).
+
+As with other collections, we're still able to store different data types within. Here we have a couple of string values, as well as an integer (the value for "age").
+
+In the code we print a few things. The first is the dictionary itself - note the output is on a single line. For the second print, we can access an item inside the dictionary by using square brackets and the key associated with the value we're after; much like we can use an index with other collections or strings.
+
+Alternatively, we can also retrieve items from the dictionary using the get method, providing the key as an argument.
+
+Unlike tuples, dictionaries are not read-only. As such, we can add, update and remove data where needed:
+
+mydictionary = {}
+print(mydictionary)
+mydictionary["foo"] = "bar"
+print(mydictionary)
+mydictionary.update({"hello": "world", "foo": "new"})
+print(mydictionary)
+mydictionary.pop("hello")
+print(mydictionary)
+$ python3 test.py
+{}
+{'foo': 'bar'}
+{'foo': 'new', 'hello': 'world'}
+{'foo': 'new'}
+Here we start with an empty dictionary, which we can see is empty when printed. Next, we add a new item much like we would set a regular variable: the foo key inside the dictionary is equal to bar.
+
+There's also a neat function available for dictionaries called update. Here we provide a separate dictionary as the argument, and note that we have a new item (with the key hello) but also an item with an existing key (foo). The result of the update is that the new item is created, while the existing item is overwritten with the new value. That's pretty cool!
+
+Finally, if we want to remove something from the dictionary we can use the pop method. Here we can provide a key we want to remove as the argument, and we can confirm in the output that the key : value pair for the key hello has been removed.
+
+What's also very powerful with all of these collections is that they can contain other collections, allowing us to have very complex sets of data, structured in whatever way we need. For example:
+
+taxi = {
+    "make": "Honda",
+    "model": "Accord",
+    "registration": "AB21 CDE",
+    "attributes": {
+        "capacity": 5,
+        "fuel": "diesel",
+        "range": "400 miles"
+    },
+    "current_passengers": [
+        {"name": "Jane"},
+        {"name": "John"},
+    ],
+}
+Here we have a top-level dictionary (the variable taxi) which contains some strings, but also another dictionary (the value for key attributes) as well as a list of more dictionaries (the value for key current_passengers)!
+
+When combining all the different data types available you'll find many creative and powerful ways to store, manipulate and manage data inside your programs. Be sure to experiment and identify which types are best suited to your desired use-cases!
+
+
+
+
+
+If this, then that
+Conditionals in programming enable us to control the flow of our programs based on a test. Think of them as branches of code that will only execute under a certain condition. They're super useful, and you'll be using a lot of them as you start to build more complex programs.
+
+In its simplest form, a conditional simply says "if this thing or statement is true then I will run the following code":
+
+x = True
+if x:
+    print('x is true')
+Note the indentation of the print line above - in programming generally, not just Python, we need to identify what code 'belongs' to the conditional; that is what lines of code will be executed if the conditional statement 'passes', i.e. is true. In some languages, such as Javascript or PHP, you'll often see { and } wrapping the code belonging to the conditional. In Python, we simply indent the related code.
+
+As well as a basic conditional check above, we can use else to tell the program "if this thing is true then run some code, otherwise do something else":
+
+x = False
+if x:
+    print('x is true')
+else:
+    print('x is false')
+You'll notice the else statement is not indented. Anything indented after the if will be executed if the statement is true, but we want to do something if the statement is not true... so we need to return to the original indentation to leave the original 'if' statement.
+
+The else statement can also be combined with an if statement to form an elif - else if. This tells Python "if the previous condition was not met, check this other condition instead". For example:
+
+x = 1
+if x == 1:
+    print('x is equal to 1')
+elif x == 2:
+    print('x is equal to 2')
+elif x == 3:
+    print('x is equal to 3')
+else:
+    print('x is not 1, 2 or 3')
+A few things to note here! First, when we want to check if two things are equal to each other we use ==. As you know, if we were to use a single equals (=) we would be trying to set a variable, so instead we use two. This is common among other languages as well; in fact some even allow === as well, for a stricter comparison where it checks not only the values match but also the types match too!
+
+You'll also see we can chain elif statements. If one condition isn't met, check another. If that one isn't met, then check another, and so on. Once we've checked everything we need, we can have a final 'fallback' else to run some code if none of the conditions were met.
+
+So far we've looked at pretty simple examples of these concepts. Let's take a look at some more complicated ones:
+
+# Example 1
+if 'pass' in 'password':
+    print('Found!')
+
+# Example 2
+x = 15
+if x > 10 and x < 20:
+    print('x is greater than 10 AND less than 20')
+if x > 10 or x < 20:
+    print('x is greater than 10 OR less than 20')
+
+# Example 3
+arg = 'abc'
+if arg:
+    print('argument provided')
+    if arg == 'abc':
+        print('argument abc provided')
+    else:
+        print('unexpected argument provided')
+else:
+    print('no argument provided')
+In example 1 we're checking something slightly different: is one string found within another. Conditional statements aren't just limited to simple 'checks', you can do all kinds of things:
+
+is the first letter of a string the letter Y? if string[0] == 'Y':
+is the result of another function what we expect? if math.floor(1.5) == 1:
+is something false, rather than true? if variable is False:
+In example 2 we check multiple conditions in a single if statement. In theory, you could check as many things as you like; however that would probably lead to code that is pretty difficult to understand! Of particular importance here are the and and or pieces - with and, all of the conditions must pass for the associated code to run, while with or only one of the conditions must pass. Make sure you're using the right one!
+
+Example 3 shows how we can nest conditional statements. Initially, we just want to check if the variable arg exists and has a value. If it does, we can then check the value to run different code accordingly. Pay close attention to the indentation here - try to identify which code will run for each conditional statement; change the arg variable and run the code to see if you were correct!
+
+
+
+Controlled repetition
+Loops enable programs to step through a repetitive task - for example; iterating over numbers 1 to 100, perhaps items in a list or characters in a string, maybe even a set of files in a directory! Loops in Python such as the for loop, or the while loop, are key to enabling your program to solve problems. You could for example build a for loop that tests 10000 password combinations one after the other; much easier than having to do it one by one yourself!
+
+Care and consideration also need to be taken when working with loops to ensure we only run things the intended number of times. Bugs or otherwise badly written code involving loops could result in infinitely repeating code, excessive memory use or other flaws and issues that break computer programs.
+
+To start, let's look at a simple loop example:
+
+colours = ["blue", "red", "orange", "cyan"]
+
+for x in colours:
+    print(x)
+If we run this code you'll see each of the items in our list printed out one after another. We've looped through the list!
+
+More specifically, we're saying for each item in the colours list, temporarily assign the item to the variable x. By indenting code we can then specify what we want to do during a single iteration of the loop, using the state of the variable x at that time.
+
+It's possible to loop through other data items as well, for example characters in a string:
+
+for y in "password1234":
+    print(y == "w")
+$ python3 test.py
+False
+False
+False
+False
+True
+False
+...
+Here Python splits the string into the individual characters, assigning each to the variable y, and then we can do something with that character during each iteration of the loop - in this case checking if it equals the letter w and printing the resulting True or False boolean output.
+
+If, for whatever reason, you didn't want to iterate through the entire loop - perhaps you're searching for something specific - it's possible to break out of the loop:
+
+for y in "password1234":
+    print(y)
+    if y == "w":
+        break;
+
+print('finished');
+$ python3 test.py
+p
+a
+s
+s
+w
+finished
+As you can see, we started looping through the characters in the string and printing each out. However, when y was equal to w we used break to exit the loop early.
+
+Similarly, it's also possible to continue to the next iteration early, if needed:
+
+for x in ["blue", "red", "orange", "cyan"]:
+    if x != "orange":
+        continue
+    print("I found the " + x)
+$ python3 test.py
+I found the orange
+Here for each iteration in the loop, we check if the item assigned to x is not equal to orange. As blue is not equal to orange, we continue on to the next iteration in the loop, next considering red; which has the same outcome and so we again continue, now onto orange. This however does equal orange, so we don't get into the code block under the condition to continue and instead we reach the print statement. It'll finally run the loop for cyan and that too will continue. Finally we've ran through all colour values and the loop has ended.
+
+Along with the for loop, which will iterate over something, we also have the while loop which will continue as long as the condition is true:
+
+i = 1
+while i <= 25:
+    print(i)
+    i += 1
+else:
+    print("I am now done")
+If we run the above code we would see numbers 1-25 printed out. This is because initially we tell Python the variable i is equal to 1, next we start a loop that is going to continue as long as i is less than or equal to 25, then we print the current value of i and finally we increase the value of i by one. Note that we do that with a shortened version of i = i + 1.
+
+Eventually, i will no longer be less than or equal to 25; this means the while condition is no longer met and the loop finishes. Here is where you need to be particularly careful because if the while condition is always met your code will continue to run indefinitely! Or at least, until you realise something is wrong and forcefully stop it.
+
+It's also possible to add an else condition to a for or a while loop. The code here will execute when the loop has finished. Note that if you break a loop early, Python doesn't consider it as having 'finished' (rather it was stopped early) and so the else code will not run.
+
+
+Reusable code
+A function in programming is a block of code which is only executed when the function is 'called'; that is we specifically request the code to run. You can provide data to the function, known as arguments, which may change the behaviour of the code within. Functions can also return data as well.
+
+They're a means of compartmentalising a specific piece of functionality in your program so that you can use it many times, rather than duplicating the same lines of code often, perhaps in many places. If your program needs to do the same thing in 10 difference places, why write the same thing 10 times? A single function is much easier to maintain and update, code is much more readable, and its likely to be more efficient as well. In programming this is known as DRY - "Don't Repeat Yourself".
+
+Let's dive into an example:
+
+def hello_world():
+    print("Hello world!")
+Here we're defining a new function - hello_world. After the name we see the opening and closing parenthesis: here is where we would specify arguments that could be provided, but for now we'll leave it empty. Much like conditionals and loops, we finish the line with a :. Within the function, indented, we print some text.
+
+If we were to run this code as-is, nothing would happen. As mentioned, a function is only executed when we request it, or call it. So let's add some lines to call the function, and then run the code:
+
+def hello_world():
+    print("Hello world!")
+
+hello_world()
+print('test')
+hello_world()
+$ python3 test.py
+Hello world!
+test
+Hello world!
+We can call the function by referencing its name, followed by the parenthesis. Here we can see the function's re-usability; we called it twice while the function only needed to be defined once!
+
+As noted earlier, it's possible to provide arguments to a function and make use of them within, as well as returning data from a function:
+
+def multiply(num1, num2):
+    return num1 * num2
+
+print(multiply(5, 5))
+print(multiply(10, 6))
+print(multiply(1234, 5678))
+$ python3 test.py
+25
+60
+7006652
+When defining the function here, inside the parenthesis we state that arguments num1 and num2 will be provided. These become variables within the function that we can then make use of, in this case multiplying them. We also return the result back to where the function is being called from. If we wanted to, we could store the result in a variable, however here we just print the returned values.
+
+Typically, functions aren't likely to contain just a single line of code, but rather some more complex logic:
+
+def filter_list_by_letter(mylist, letter):
+    newlist = []
+    for item in mylist:
+        if item[0] == letter:
+            newlist.append(item)
+
+    return newlist
+
+names = ["Alex", "Charlotte", "John", "Jane", "Sam"]
+filtered = filter_list_by_letter(names, 'J')
+print(filtered)
+$ python3 test.py
+['John', 'Jane']
+While you could potentially create a fully-featured, complex program without writing any of your own functions; it would likely be a bloated, difficult to maintain mess of code! Functions are integral to clean, re-usable and easy to maintain programs and should definitely be something you use a lot!
+
+
+
+No need to reinvent the wheel
+Modules are a way to build functionality to provide to other programs. For example, if you're working on a larger program - perhaps a cool cyber security tool - and as part of it you need to be able to scan external networks. You might create a module which contains that specific functionality so that various parts of your program, or even other programs, can make use of it.
+
+Python modules also already exist in large numbers. There are some which are included with Python when you install it, along with many available on the web and via Python's package installer pip. As we have seen with the math module, these can provide lots of additional functionality and save you from needing to write your own code to accomplish the same thing.
+
+To start with we'll look at an example using a built-in module:
+
+import sys
+
+n = len(sys.argv)
+print("You provided the following arguments:")
+
+for i in range(1, n):
+    print(sys.argv[i])
+We're making use of the sys module in our code and so import the module needed on the first line. This module provides access to a bunch of things related to the Python 'system' - perhaps we need the version so we can run slightly different code depending on the version of Python the user is running.
+
+However, in our case we're going to make use of the argv variable. This is a list of the command line arguments passed to Python when we are running the script. To begin with we calculate the length of the list, which we can then use to iterate through it.
+
+We create a for loop, setting the variable i to a range of values from 1 to n (the length of the sys.argv list). If you remember from previous sections, lists are zero indexed - they start at 0. Well, the value at index 0 in sys.argv is the name of the script file we're running. We don't care about that here, so we'll start our range at 1, skipping index 0! Finally, we're printing out the list items at index i, each time we iterate through the loop.
+
+If we just run this normally, we don't actually see anything:
+
+$ python3 test.py
+You provided the following arguments:
+As mentioned, we skipped sys.argv[0] as it's the script name and we didn't provide any additional arguments it never got into that loop. Let's try again:
+
+$ python3 test.py 127.0.0.1 username password
+You provided the following arguments:
+127.0.0.1
+username
+password
+That's better! As you can see, when we invoked the script we provided three additional arguments. Our code, using the sys module, was able to read those arguments and display them. If we needed to, we could then use these arguments to dynamically connect to the provided address, or perhaps execute different code depending on the values provided.
+
+But what if we want to create our own module? Let's add some code to a new file - hello.py:
+
+def hello(name):
+    print("Hello! How are you " + name + "?")
+This is of course a super simple example, but it could be any number of functions and code that we wanted to re-use across one or more of our programs.
+
+Next we can create a test.py file in the same directory as our hello.py file:
+
+import hello
+hello.say_hi('Jane')
+And if we run the test.py file from within the directory:
+
+$ python3 test.py
+Hello! How are you Jane?
+Nice! We have successfully imported our own module and called a function from within.
+
+This is a great practice to be able to build better scaling applications and re-use functionality over time. Where you find yourself needing the same piece of code across different projects, consider creating a module to store that functionality and make it easily available. This will take your use of reusable code to new higher levels.
+
+
+
+File I/O
+Reading and writing files is a pretty important skill to have in programming. Whether it's reading config files, attempting to crack a password on a zip file or even crawling a website and making copies of interesting files you find; you're likely to need to interact with files programmatically at some point.
+
+There's quite a few different ways to interact with files in Python. Some are more robust and structured, while others are more "quick and dirty" for hacking together quick scripts. We'll focus on the latter here and dive into a quick example:
+
+reader = open("file.txt", "r")
+print(reader.readline())
+print(reader.read(10))
+reader.close()
+$ python3 test.py
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+Donec plac
+Here we're attempting to open a file file.txt (in the same directory as the script), specifying we want to open in read only mode by providing the second argument r.
+
+The first line of printed data is using the function reader.readline() - as the name suggests, we're reading a whole line from the file.
+
+The next line of printed data is using the function reader.read() - this instead reads a specified amount of characters from the file, in our case 10 as we requested. Notice that the 10 characters read are not the same as the 10 characters from the first line as it continues to read data from where it previously stopped; the end of the first line. Think of there being a "pointer" at your current position and you read more, the pointer has moved on.
+
+We then close the file handler reader. Usually this is good practice, once you're finished with the file, as it prevents any acciental data being written or other unwanted file interaction. Given we opened the file in read-only mode here it doesn't really matter, but it's a good habit to build.
+
+What about writing to a file? Let's have a look at another example, but first, be warned! When writing to files it's easy to accientally overwrite data, so always double-check your code is doing what you expect.
+
+log = open("log.txt", "a")
+log.write("I am logging something")
+log.close()
+As before we create a variable containing a file handler, using the open function. Here we're using the file log.txt and opening the file in append mode - a. In this mode data will be appended to the end of an existing file, retaining any existing file contents and merely having your additional content added at the end.
+
+When we run this code, if the file doesn't already exist it will be created, and the specified data written to it. If we run it multiple times, you'll notice the data is being added to the end each time.
+
+If you specifically want to overwrite the existing data each time, the file can instead be opened with the w argument for write mode. Here, any existing data will be deleted and replaced with whatever data is written between the open and close of the file.
+
+There are some more advanced use-cases for files we can briefly cover as well. So far we have been reading and writing in text mode, dealing with bytes that are being interpreted as ASCII characters. However, we might not always want to work with a file containing only text characters - maybe we want to open an image instead. Here we can use a binary write and read mode:
+
+with open("file.jpg", "rb") as image:
+    print(image.read(10))
+    image.close()
+$ python3 test.py
+b'\xff\xd8\xff\xe2\x0cXICC_'
+The syntax is slightly different here, but we're doing roughly the same thing. Effectively, we're telling Python "with the result of the open function as the image variable" and then starting an indented code block, with the image variable then available in that indented block.
+
+Notice here we're opening the file in rb mode - read binary and the indented code block is specifying we want the first 10 bytes of data to be read and printed. Not something you need to focus on too much right now, but this functionality can be very powerful when starting to work with file manipulation, advanced cryptography and more.
+
+Finally, it's worth noting that these examples don't have any exception handling, something we haven't covered in the Field Manual. Simply put, if something goes wrong it'll usually result in an exception being raised or thrown. This is common when working with files as there's lots of points of failure: the file doesn't exist; the program doesn't have permission to read the file; the filesize is too large; plus other issues you may want to account for.
+
+Something worth researching is how to handle these exceptions so that your code can fail more gracefully, presenting relevant messages to the user or behaving differently depending on what kind of error has occurred.
+
+We hope that this chapter of the Field Manual has given you a great start with your programming journey, but it's really only covered the basics. If you've enjoyed the start we've given you here, we'd advise you to continue your learning by searching for more knowledge online; there's so many great resources to learn from and so much to learn. Have fun and keep learning!
+
+We hope that this chapter of the Field Manual has given you a great start with your programming journey, but it's really only covered the basics. If you've enjoyed the start we've given you here, we'd advise you to continue your learning by searching for more knowledge online; there's so many great resources to learn from and so much to learn. Have fun and keep learning!
+
+
+
+
